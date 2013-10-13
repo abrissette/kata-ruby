@@ -1,4 +1,4 @@
-require_relative '../dictionary_helper'
+require_relative '../dictionary'
 
 describe 'dictionary' do
   before(:each) do
@@ -15,7 +15,6 @@ describe 'dictionary' do
   end
 
   describe 'sort_file' do
-  
     it 'should return an sorted array' do
       words = Dictionary::sort @dictionary
       words.class.should be(Hash)

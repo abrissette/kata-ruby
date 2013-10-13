@@ -1,4 +1,4 @@
-require_relative 'dictionary_helper'
+require_relative 'dictionary'
 
 include DictionaryHelper
 
