@@ -1,4 +1,4 @@
-module Dictionary
+module FileDictionary
   def self.read path
     puts "Reading dictionary..."
     start_reading = Time.now
@@ -33,10 +33,13 @@ module Dictionary
     puts "Dictionary sorted in #{stop_sorting-start_sorting} s"
     words
   end
+end
 
+module Dictionary
   def self.readable words
-    puts "Searching for 6 letters words composed by two words..."
+    puts "Readable search"
     start_searching = Time.now
+    
     results = {}
     [[1,5], [2,4], [3,3], [4,2], [5,1]].each{ |first, second|
       words[first].each{ |short_word_1|
@@ -46,13 +49,31 @@ module Dictionary
         }
       }
     }
+    
     stop_searching = Time.now
-    puts "Search took #{stop_searching-start_searching} s"
     puts "#{results.length} results found in #{stop_searching-start_searching} s"
+    
     results
   end
 
-  def self.optimal words
-  
+  def self.fastest words
+    puts "Fastest search"
+    start_searching = Time.now
+        
+    results = {}
+    words[6].each{ |six_letters_word|
+      (1..5).each{ |i|
+        first_part = six_letters_word[0..i-1]
+        second_part = six_letters_word[i..-1]
+        if words[i] && words[i].include?(first_part) && words[6-i] && words[6-i].include?(second_part)
+          results[first_part+second_part] = [first_part, second_part]
+        end
+      }
+    }
+    
+    stop_searching = Time.now
+    puts "#{results.length} results found in #{stop_searching-start_searching} s"
+    
+    results    
   end
 end

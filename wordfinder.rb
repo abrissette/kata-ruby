@@ -1,13 +1,16 @@
 require_relative 'dictionary'
 
-include DictionaryHelper
+include FileDictionary
+include Dictionary
 
 begin
-  dictionary = DictionaryHelper::read_dictionary ARGV.first || nil
+  dictionary = FileDictionary::read ARGV.first || nil
   
-  words = DictionaryHelper::sort_dictionary dictionary
+  words = FileDictionary::sort dictionary
   
-  results = DictionaryHelper::readable words
+  results = Dictionary::readable words
+  results = Dictionary::fastest words
+  
 rescue => e
   puts "Something went wrong: #{e.inspect}"
 end
